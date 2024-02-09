@@ -6,7 +6,9 @@ import org.example.doorhub.discount.dto.DiscountCreateDto;
 import org.example.doorhub.discount.dto.DiscountResponseDto;
 import org.example.doorhub.discount.dto.DiscountUpdateDto;
 import org.example.doorhub.discount.entity.Discount;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +24,11 @@ public class DiscountMapperDto extends GenericDtoMapper<Discount, DiscountCreate
 
     @Override
     public DiscountResponseDto toResponseDto(Discount discount) {
+
+        mapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+        TypeMap<Discount, DiscountResponseDto> typeMap = mapper.typeMap(Discount.class, DiscountResponseDto.class)
+                .addMappings(mapper -> mapper.map(src -> src.getParentCategory().getId(), DiscountResponseDto::setParentCategoryId));
+
         return mapper.map(discount, DiscountResponseDto.class);
     }
 

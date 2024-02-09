@@ -3,6 +3,7 @@ package org.example.doorhub.category.parent.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.doorhub.review.entity.Review;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,5 +14,6 @@ public class ParentCategoryResponseDto {
     private String name;
     private Integer userId;
     private Integer categoryId;
+    private Review review;
 
 }

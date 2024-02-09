@@ -6,7 +6,9 @@ import org.example.doorhub.address.dto.AddressResponseDto;
 import org.example.doorhub.address.dto.AddressUpdateDto;
 import org.example.doorhub.address.entity.Address;
 import org.example.doorhub.common.service.GenericDtoMapper;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,6 +23,10 @@ public class AddressDtoMapper extends GenericDtoMapper<Address, AddressBaseDto, 
 
     @Override
     public AddressResponseDto toResponseDto(Address address) {
+        mapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+        TypeMap<Address, AddressResponseDto> typeMap = mapper.typeMap(Address.class, AddressResponseDto.class)
+                .addMappings(mapper -> mapper.map(src -> src.getUser().getId(), AddressResponseDto::setUserId));
+
         return mapper.map(address, AddressResponseDto.class);
     }
 

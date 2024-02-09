@@ -30,22 +30,4 @@ public class ReviewController {
         reviewService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
-    @GetMapping("/review/users")
-    public String getUsers() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null && authentication.isAuthenticated()) {
-            // Foydalanuvchi ma'lumotlarini olish
-            String username = authentication.getName();
-            // Yoki foydalanuvchi obyektini olish
-            // User user = (User) authentication.getPrincipal();
-
-            // ... qolgan logika ...
-            return "Foydalanuvchi: " + username;
-        } else {
-            // Foydalanuvchi avtorizatsiyadan o'tmagan
-            return "Foydalanuvchi avtorizatsiyadan o'tmagan";
-        }
-    }
 }

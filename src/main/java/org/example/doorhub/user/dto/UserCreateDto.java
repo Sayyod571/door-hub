@@ -20,11 +20,8 @@ public class UserCreateDto {
     @NotBlank
     private String lastname;
     @NotBlank
-    @Pattern(regexp = "^9989[0-9]{8}$")
+    @Pattern(regexp = "^9989[0-9]{9}$")
     private String phoneNumber;
     @Email
     private String email;
-    private String gender;
-    private List<Role> role;
-
 }

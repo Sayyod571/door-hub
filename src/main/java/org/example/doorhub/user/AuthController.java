@@ -23,12 +23,6 @@ public class AuthController {
     private final UserService userService;
     private final JwtService jwtService;
 
-
-    @GetMapping("/me")
-    public Principal principal(Principal principal){
-        return principal;
-    }
-
     @PostMapping("/register")
     public ResponseEntity<RegisterSignInResponseDto> register(@RequestBody @Valid UserCreateDto userRegisterRequestDto) throws CustomExceptionThisUsernameOlReadyTaken {
         RegisterSignInResponseDto userResponseDto = userService.register(userRegisterRequestDto);

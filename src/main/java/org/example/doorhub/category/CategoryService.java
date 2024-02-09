@@ -25,7 +25,7 @@ public class CategoryService extends GenericCrudService<Category, Integer, Categ
 
     @Override
     @Transactional
-    protected Category save(CategoryCreateDto categoryCreateDto) {
+    public Category save(CategoryCreateDto categoryCreateDto) {
 
         Category category = mapper.toEntity(categoryCreateDto);
         return repository.save(category);
@@ -34,7 +34,7 @@ public class CategoryService extends GenericCrudService<Category, Integer, Categ
 
     @Override
     @Transactional
-    protected Category updateEntity(CategoryUpdateDto categoryUpdateDto, Category category) {
+    public Category updateEntity(CategoryUpdateDto categoryUpdateDto, Category category) {
         mapper.update(categoryUpdateDto, category);
         return repository.save(category);
     }

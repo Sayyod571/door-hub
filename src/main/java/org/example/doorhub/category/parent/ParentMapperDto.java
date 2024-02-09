@@ -31,23 +31,8 @@ public class ParentMapperDto extends GenericDtoMapper<ParentCategory, ParentCate
     @Override
     public ParentCategoryResponseDto toResponseDto(ParentCategory parentCategory) {
         modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
-        TypeMap<Category, CategoryResponseDto> typeMap = modelMapper.typeMap(Category.class, CategoryResponseDto.class)
-                .addMappings(mapper -> mapper.map(src -> src.getId(), CategoryResponseDto::setId));
-
-        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
-        TypeMap<User, UserResponseDto> typeMap1 = modelMapper.typeMap(User.class, UserResponseDto.class)
-                .addMappings(mapper -> mapper.map(src -> src.getId(), UserResponseDto::setId));
-
-        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
-        TypeMap<Review, ReviewResponseDto> typeMap3 = modelMapper.typeMap(Review.class, ReviewResponseDto.class)
-                .addMappings(mapper -> mapper.map(src -> src.getId(), ReviewResponseDto::setStars));
-
-
-        modelMapper.map(typeMap , ParentCategoryResponseDto.class);
-        modelMapper.map(typeMap1 , ParentCategoryResponseDto.class);
-        modelMapper.map(typeMap3 , ParentCategoryResponseDto.class);
-
-
+        TypeMap<ParentCategory, ParentCategoryResponseDto> typeMap = modelMapper.typeMap(ParentCategory.class, ParentCategoryResponseDto.class)
+                .addMappings(mapper -> mapper.map(src -> src.getCategory().getId(), ParentCategoryResponseDto::setCategoryId));
 
         return modelMapper.map(parentCategory, ParentCategoryResponseDto.class);
     }

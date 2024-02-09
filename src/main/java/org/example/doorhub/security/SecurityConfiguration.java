@@ -34,11 +34,12 @@ public class SecurityConfiguration {
             "/v3/api-docs/**",
             "/swagger-resources/**",
             "/webjars/** ",
-            "user/**",
-            "/oauth2/**",
-            "/login/**",
-            "/auth/register",
-            "/auth/register/verify-phone"
+            "/auth/**"
+//            "user/**",
+//            "/oauth2/**",
+//            "/login/**",
+//            "/auth/register",
+//            "/auth/register/verify-phone"
     };
 
     @Bean

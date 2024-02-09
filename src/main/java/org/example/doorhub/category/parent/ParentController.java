@@ -41,13 +41,6 @@ public class ParentController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ParentCategoryResponseDto> updateCategory(@PathVariable Integer id,
-                                                              @RequestBody @Valid ParentCategoryUpdateDto updateDto) {
-        ParentCategoryResponseDto responseDto = parentService.update(id, updateDto);
-        return ResponseEntity.ok(responseDto);
-    }
-
     @PatchMapping("/{id}")
     public ResponseEntity<ParentCategoryResponseDto> patchCategory(@PathVariable Integer id
             , @RequestBody ParentCategoryPathDto patchDto) throws NoSuchFieldException, IllegalAccessException {

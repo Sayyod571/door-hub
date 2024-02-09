@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.doorhub.review.entity.Review;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -13,6 +15,6 @@ public class ParentCategoryResponseDto {
     private Integer id;
     private String name;
     private Integer categoryId;
-    private Review review;
+    private List<Review> review;
 
 }

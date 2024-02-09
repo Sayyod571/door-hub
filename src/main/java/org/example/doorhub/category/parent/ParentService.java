@@ -12,9 +12,11 @@ import org.example.doorhub.category.parent.dto.ParentCategoryUpdateDto;
 import org.example.doorhub.category.parent.entity.ParentCategory;
 import org.example.doorhub.common.service.GenericCrudService;
 import org.example.doorhub.review.ReviewRepository;
+import org.example.doorhub.review.entity.Review;
 import org.example.doorhub.user.UserRepository;
-import org.example.doorhub.user.entity.User;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -32,8 +34,11 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
     @Override
     protected ParentCategory save(ParentCategoryCreateDto parentCategoryCreateDto) {
 
-        User user = userRepository.findById(parentCategoryCreateDto.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException("user id not found"));
+        Review reviewIdNotFound = reviewRepository.findById(parentCategoryCreateDto.getReviewId())
+                .orElseThrow(() -> new EntityNotFoundException("review id not found"));
+
+        ArrayList<Review> reviews = new ArrayList<>();
+        reviews.add(reviewIdNotFound);
 
         Category category = categoryRepository.findById(parentCategoryCreateDto.getCategoryId())
                 .orElseThrow(() -> new EntityNotFoundException("category id not found"));
@@ -41,8 +46,8 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
 
         ParentCategory parentCategory = mapper.toEntity(parentCategoryCreateDto);
 
-        parentCategory.setUser(user);
-        user.getCategories().add(parentCategory);
+        parentCategory.setViews(reviews);
+        reviewIdNotFound.setParentCategory(parentCategory);
 
         parentCategory.setCategory(category);
         category.getParents().add(parentCategory);
@@ -51,8 +56,8 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
 
     public ParentCategoryResponseDto create(ParentCategoryCreateDto createDto) {
 
-        User user = userRepository.findById(createDto.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException("user id not found"));
+        Review reviewIdNotFound = reviewRepository.findById(createDto.getReviewId())
+                .orElseThrow(() -> new EntityNotFoundException("review id not found"));
 
         Category category = categoryRepository.findById(createDto.getCategoryId())
                 .orElseThrow(() -> new EntityNotFoundException("category id not found"));
@@ -61,7 +66,7 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
         ParentCategory parentCategory = save(createDto);
 
         ParentCategoryResponseDto responseDto = mapper.toResponseDto(parentCategory);
-        responseDto.setUserId(user.getId());
+        responseDto.setReview(reviewIdNotFound);
         responseDto.setCategoryId(category.getId());
 
         return responseDto;
@@ -71,14 +76,17 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
     @Override
     protected ParentCategory updateEntity(ParentCategoryUpdateDto parentCategoryUpdateDto, ParentCategory parentCategory) {
 
-        User user = userRepository.findById(parentCategoryUpdateDto.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException("user id not found"));
+        Review reviewIdNotFound = reviewRepository.findById(parentCategoryUpdateDto.getReviewId())
+                .orElseThrow(() -> new EntityNotFoundException("review id not found"));
 
         Category category = categoryRepository.findById(parentCategoryUpdateDto.getCategoryId())
                 .orElseThrow(() -> new EntityNotFoundException("category id not found"));
 
+        ArrayList<Review> reviews = new ArrayList<>();
+        reviews.add(reviewIdNotFound);
+
         mapper.update(parentCategoryUpdateDto, parentCategory);
-        parentCategory.setUser(user);
+        parentCategory.setViews(reviews);
         parentCategory.setCategory(category);
         return repository.save(parentCategory);
 
@@ -86,8 +94,8 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
 
     public ParentCategoryResponseDto update(Integer id, ParentCategoryUpdateDto parentCategoryUpdateDto) {
 
-        User user = userRepository.findById(parentCategoryUpdateDto.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException("user id not found"));
+        Review reviewIdNotFound = reviewRepository.findById(parentCategoryUpdateDto.getReviewId())
+                .orElseThrow(() -> new EntityNotFoundException("review id not found"));
 
         Category category = categoryRepository.findById(parentCategoryUpdateDto.getCategoryId())
                 .orElseThrow(() -> new EntityNotFoundException("category id not found"));
@@ -100,7 +108,7 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
         ParentCategoryResponseDto responseDto = mapper.toResponseDto(updateEntity);
 
         responseDto.setCategoryId(category.getId());
-        responseDto.setUserId(user.getId());
+        responseDto.setReview(reviewIdNotFound);
 
         return responseDto;
 

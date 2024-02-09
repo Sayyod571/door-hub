@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class ParentCategoryPathDto {
 
     private String name;
-    private Integer userId;
     private Integer categoryId;
+    private Integer reviewId;
 
 }

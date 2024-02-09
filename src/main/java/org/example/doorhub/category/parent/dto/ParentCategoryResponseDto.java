@@ -12,7 +12,6 @@ public class ParentCategoryResponseDto {
 
     private Integer id;
     private String name;
-    private Integer userId;
     private Integer categoryId;
     private Review review;
 

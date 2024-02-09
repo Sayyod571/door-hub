@@ -105,12 +105,13 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
         ParentCategory parentCategory = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("parentCategory id not found"));
 
+        ArrayList<Review> reviews = new ArrayList<>();
         ParentCategory updateEntity = updateEntity(parentCategoryUpdateDto, parentCategory);
 
         ParentCategoryResponseDto responseDto = mapper.toResponseDto(updateEntity);
 
         responseDto.setCategoryId(category.getId());
-        responseDto.setReview(reviewIdNotFound);
+        responseDto.setReview(reviews);
 
         return responseDto;
 

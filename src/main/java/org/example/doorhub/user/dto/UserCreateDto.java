@@ -27,5 +27,4 @@ public class UserCreateDto {
     private String gender;
     private List<Role> role;
 
-
 }

@@ -29,17 +29,12 @@ public class SecurityConfiguration {
     private final CustomOauth2UserService oauth2UserDetails;
 
     final String[] MATCHERS = {
-            "swagger - ui.html",
+            "/swagger-ui.html",
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/swagger-resources/**",
-            "/webjars/** ",
-            "/auth/**"
-//            "user/**",
-//            "/oauth2/**",
-//            "/login/**",
-//            "/auth/register",
-//            "/auth/register/verify-phone"
+            "/webjars/**",
+            "/auth/***"
     };
 
     @Bean

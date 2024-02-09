@@ -40,7 +40,7 @@ public class SwaggerConfig {
                         .url("https://github.com/Door-Hub/door-hub"))
                 .servers(List.of(
                         new Server()
-                                .url("http://localhost:8080/")
+                                .url("https://door-hub-production.up.railway.app/")
                                 .description("Production")
                 )).addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components()

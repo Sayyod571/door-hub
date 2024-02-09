@@ -17,6 +17,7 @@ import org.example.doorhub.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -62,11 +63,12 @@ public class ParentService extends GenericCrudService<ParentCategory, Integer, P
         Category category = categoryRepository.findById(createDto.getCategoryId())
                 .orElseThrow(() -> new EntityNotFoundException("category id not found"));
 
+        List<Review> reviews = new ArrayList<>();
 
         ParentCategory parentCategory = save(createDto);
 
         ParentCategoryResponseDto responseDto = mapper.toResponseDto(parentCategory);
-        responseDto.setReview(reviewIdNotFound);
+        responseDto.setReview(reviews);
         responseDto.setCategoryId(category.getId());
 
         return responseDto;

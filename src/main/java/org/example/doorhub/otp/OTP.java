@@ -22,7 +22,6 @@ public class OTP {
     private String lastname;
     private String email;
 
-
     private String gender;
     private LocalDate brithDate;
     private int code;

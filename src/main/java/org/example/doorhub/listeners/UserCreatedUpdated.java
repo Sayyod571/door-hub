@@ -13,6 +13,4 @@ public class UserCreatedUpdated  {
         user.setCreated(LocalDateTime.now());
         user.setUpdated(LocalDateTime.now());
     }
-
-
 }
